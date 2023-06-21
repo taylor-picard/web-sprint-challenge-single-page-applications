@@ -9,7 +9,8 @@ function Form() {
                 <input
                 id="name-input"
                 type="text"
-
+                name="name"
+                onChange={onChange}
                 />
             </label>
             
