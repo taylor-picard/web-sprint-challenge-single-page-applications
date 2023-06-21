@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import * as yup from 'yup';
+import axios from "axios";
 import Home from "./Pages/homepage";
 import Form from "./Pages/form";
 import formSchema from "./Validation/FormSchema";
@@ -30,18 +31,30 @@ const App = () => {
     setFormValues({...formValues, [name]: value});
   }
 
+  const handleSubmit = () => {
+    axios.post(formValues)
+      .then(res => {
+
+      })
+      .catch(err => console.error(err))
+  }
+
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pizza" element={<Form />}/>
+        <Route path="/pizza" element={<Form 
+          values={formValues} 
+          change={handleChange} 
+          errors={formErrs}
+          submit={handleSubmit}/>}
+        />
         {/* <Route path="confirmation" element={<Confirm />}/> */}
       </Routes>
       <nav>
         <Link to='/'>Home</Link>
         <Link to='/pizza' id="order-pizza">Order Pizza</Link>
       </nav>
-      <Form values={formValues} change={handleChange} errors={formErrs}/>
     </div>
   );
 };
