@@ -23,14 +23,51 @@ function Form(props) {
             <label>
                 Name:
                 <input
-                id="name-input"
-                type="text"
-                name="name"
-                value={values.name}
-                onChange={onChange}
+                    id="name-input"
+                    type="text"
+                    name="name"
+                    value={values.name}
+                    onChange={onChange}
                 />
             </label>
-            
+            <label>
+                Size:
+                <input
+                    id="size-dropdown"
+                    type="dropdown"
+                />
+            </label>
+            <label>
+                Toppings:
+                <label>
+                    Pepperoni
+                    <input
+                        type="checkbox"
+                        name="pepperoni"
+                    />
+                </label>
+                <label>
+                    Bacon
+                    <input
+                        type="checkbox"
+                        name="bacon"
+                    />
+                </label>
+                <label>
+                    Sausage
+                    <input
+                        type="checkbox"
+                        name="sausage"
+                    />
+                </label>
+                <label>
+                    Jalapenos
+                    <input
+                        type="checkbox"
+                        name="jalapenos"
+                    />
+                </label>
+            </label>
         </form>
     )
 }

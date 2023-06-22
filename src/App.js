@@ -19,6 +19,10 @@ const App = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrs, setFormErrs] = useState(initialFormErrs);
 
+  const sizeOpt = ['Small','Medium','Large']
+
+  const [size, setSize] = useState('Select a size!')
+
   const validate = (name, value) => {
     yup.reach(formSchema, name)
       .validate(value)
