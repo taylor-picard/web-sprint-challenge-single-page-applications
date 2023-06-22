@@ -9,6 +9,7 @@ import formSchema from "./Validation/FormSchema";
 
 const initialValues = {
   name: ''
+
 }
 const initialFormErrs = {
   name: ''
@@ -18,11 +19,12 @@ const initialFormErrs = {
 const App = () => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrs, setFormErrs] = useState(initialFormErrs);
+  const [order, setOrder] = useState({});
+  const [size, setSize] = useState('Select a size!')
 
   const sizeOpt = ['Small','Medium','Large']
 
-  const [size, setSize] = useState('Select a size!')
-
+  
   const validate = (name, value) => {
     yup.reach(formSchema, name)
       .validate(value)
@@ -38,13 +40,18 @@ const App = () => {
   const handleSubmit = () => {
     axios.post(formValues)
       .then(res => {
-
+        setOrder(formValues)
+        setFormValues(initialValues)
       })
       .catch(err => console.error(err))
   }
 
   return (
     <div>
+      <nav>
+        <Link to='/'>Home </Link>
+        <Link to='/pizza' id="order-pizza">OrderPizza</Link>
+      </nav>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pizza" element={<Form 
@@ -55,10 +62,7 @@ const App = () => {
         />
         {/* <Route path="confirmation" element={<Confirm />}/> */}
       </Routes>
-      <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/pizza' id="order-pizza">Order Pizza</Link>
-      </nav>
+      
     </div>
   );
 };

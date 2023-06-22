@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 function Form(props) {
     const {change, submit, errors, values} = props;
-    
+
+    const [isChecked, setIsChecked] = useState(false);
 
     const onChange = (e) => {
         const {name, value} = e.target;
         change(name, value)
+        
     }
 
     const onSubmit = (e) => {
@@ -35,6 +37,8 @@ function Form(props) {
                 <input
                     id="size-dropdown"
                     type="dropdown"
+                    checked={isChecked}
+                    onChange={onChange}
                 />
             </label>
             <label>
@@ -44,6 +48,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="pepperoni"
+                        onChange={onChange}
                     />
                 </label>
                 <label>
@@ -51,6 +56,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="bacon"
+                        onChange={onChange}
                     />
                 </label>
                 <label>
@@ -58,6 +64,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="sausage"
+                        onChange={onChange}
                     />
                 </label>
                 <label>
@@ -65,9 +72,26 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="jalapenos"
+                        onChange={onChange}
                     />
                 </label>
             </label>
+            <br/>
+            <label>
+                Special Instructions:
+                <input
+                    id="special-text"
+                    type="text"
+                    name="specialInstructions"
+                    onChange={onChange}
+                />
+            </label>
+            <br/>
+            <button
+                id="order-button"
+            >
+                Add to Order
+            </button>
         </form>
     )
 }
