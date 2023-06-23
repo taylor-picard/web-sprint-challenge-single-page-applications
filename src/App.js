@@ -8,8 +8,9 @@ import formSchema from "./Validation/FormSchema";
 
 
 const initialValues = {
-  name: ''
-
+  name: '',
+  pepperoni: false,
+  specialInstructions: ''
 }
 const initialFormErrs = {
   name: ''
@@ -21,6 +22,7 @@ const App = () => {
   const [formErrs, setFormErrs] = useState(initialFormErrs);
   const [order, setOrder] = useState({});
   const [size, setSize] = useState('Select a size!')
+  const [isChecked, setIsChecked] = useState(false);
 
   const sizeOpt = ['Small','Medium','Large']
 
@@ -33,14 +35,18 @@ const App = () => {
   }
 
   const handleChange = (name, value) => {
-    validate(name, value)
+    if(name === 'name'){
+      validate(name, value)
+    }
     setFormValues({...formValues, [name]: value});
+    
   }
 
   const handleSubmit = () => {
-    axios.post(formValues)
-      .then(res => {
-        setOrder(formValues)
+    axios.post(`https://reqres.in/api/orders`,formValues)
+      .then((res) => {
+        setOrder(res.data)
+        console.log(res.data)
         setFormValues(initialValues)
       })
       .catch(err => console.error(err))
@@ -56,9 +62,11 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/pizza" element={<Form 
           values={formValues} 
+          checked={isChecked}
           change={handleChange} 
           errors={formErrs}
-          submit={handleSubmit}/>}
+          submit={handleSubmit}/>
+          }
         />
         {/* <Route path="confirmation" element={<Confirm />}/> */}
       </Routes>

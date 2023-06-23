@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 
 
 function Form(props) {
-    const {change, submit, errors, values} = props;
+    const {change, submit, errors, values, checked} = props;
+    // const {name, isChecked} = props.values;
 
-    const [isChecked, setIsChecked] = useState(false);
 
     const onChange = (e) => {
-        const {name, value} = e.target;
-        change(name, value)
-        
+        const {name, value, type, checked} = e.target;
+        const newVal = type === 'checkbox' ? checked : value;
+        change(name, newVal)
     }
 
     const onSubmit = (e) => {
@@ -34,12 +34,16 @@ function Form(props) {
             </label>
             <label>
                 Size:
-                <input
+                <select
                     id="size-dropdown"
+                    name="sizes"
                     type="dropdown"
-                    checked={isChecked}
                     onChange={onChange}
-                />
+                >
+                    <option value='small'>Small</option>
+                    <option value='medium'>Medium</option>
+                    <option value='large'>Large</option>
+                </select>
             </label>
             <label>
                 Toppings:
@@ -48,6 +52,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="pepperoni"
+                        checked={checked.isChecked}
                         onChange={onChange}
                     />
                 </label>
@@ -56,6 +61,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="bacon"
+                        checked={checked.isChecked}
                         onChange={onChange}
                     />
                 </label>
@@ -64,6 +70,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="sausage"
+                        checked={checked.isChecked}
                         onChange={onChange}
                     />
                 </label>
@@ -72,6 +79,7 @@ function Form(props) {
                     <input
                         type="checkbox"
                         name="jalapenos"
+                        checked={checked.isChecked}
                         onChange={onChange}
                     />
                 </label>
@@ -83,6 +91,7 @@ function Form(props) {
                     id="special-text"
                     type="text"
                     name="specialInstructions"
+                    value={values.specialInstructions}
                     onChange={onChange}
                 />
             </label>
